@@ -105,8 +105,8 @@ module Curadef
     # "limit_to_extruder": "top_bottom_extruder_nr",
     # "settable_per_mesh": true
     unless value
-      machine_max_feedrate_x, machine_max_feedrate_y = args
-      value = truncate_num(Math.sqrt(machine_max_feedrate_x ** 2 + machine_max_feedrate_y ** 2))
+      speed_topbottom = args[0]
+      value = truncate_num(speed_topbottom * 2 / 3.0)
     end
     [0.001, value].max
   end

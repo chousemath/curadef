@@ -194,10 +194,14 @@ describe Curadef do
       expect(actual).to eq(0.001)
     end
     it 'should return the correct value trial 1' do
-      machine_max_feedrate_x = 10
-      machine_max_feedrate_y = 20
-      actual = Curadef.speed_ironing(nil, machine_max_feedrate_x, machine_max_feedrate_y)
-      expect(actual).to eq(22.360)
+      speed_topbottom = 30
+      actual = Curadef.speed_ironing(nil, speed_topbottom)
+      expect(actual).to eq(20)
+    end
+    it 'should return the correct value trial 2' do
+      speed_topbottom = 60
+      actual = Curadef.speed_ironing(nil, speed_topbottom)
+      expect(actual).to eq(40)
     end
   end
 end
