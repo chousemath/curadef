@@ -175,4 +175,29 @@ describe Curadef do
       expect(actual).to eq(0.35)
     end
   end
+
+  context 'speed_ironing' do
+    it 'should return a value if give one' do
+      actual = Curadef.speed_ironing(1.5)
+      expect(actual).to eq(1.5)
+    end
+    it 'should return a value if give one, regardles of following values' do
+      actual = Curadef.speed_ironing(1.5, 22, 33)
+      expect(actual).to eq(1.5)
+    end
+    it 'should return minimum value if value is 0' do
+      actual = Curadef.speed_ironing(0, 22, 33)
+      expect(actual).to eq(0.001)
+    end
+    it 'should return minimum value if value is negative' do
+      actual = Curadef.speed_ironing(-10, 22, 33)
+      expect(actual).to eq(0.001)
+    end
+    it 'should return the correct value trial 1' do
+      machine_max_feedrate_x = 10
+      machine_max_feedrate_y = 20
+      actual = Curadef.speed_ironing(nil, machine_max_feedrate_x, machine_max_feedrate_y)
+      expect(actual).to eq(22.360)
+    end
+  end
 end

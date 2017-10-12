@@ -91,6 +91,26 @@ module Curadef
     [0, value].max
   end
 
+  def self.speed_ironing(value, *args)
+    # "label": "Ironing Speed",
+    # "description": "The speed at which to pass over the top surface.",
+    # "type": "float",
+    # "unit": "mm/s",
+    # "default_value": 20.0,
+    # "value": "speed_topbottom * 20 / 30",
+    # "minimum_value": "0.001",
+    # "maximum_value": "math.sqrt(machine_max_feedrate_x ** 2 + machine_max_feedrate_y ** 2)",
+    # "maximum_value_warning": "100",
+    # "enabled": "ironing_enabled",
+    # "limit_to_extruder": "top_bottom_extruder_nr",
+    # "settable_per_mesh": true
+    unless value
+      machine_max_feedrate_x, machine_max_feedrate_y = args
+      value = truncate_num(Math.sqrt(machine_max_feedrate_x ** 2 + machine_max_feedrate_y ** 2))
+    end
+    [0.001, value].max
+  end
+
   def self.truncate_num(value)
     (value * 1000).floor / 1000.0
   end
