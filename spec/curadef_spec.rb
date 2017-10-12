@@ -36,6 +36,20 @@ describe Curadef do
   end
 
   context 'infill_line_distance' do
-    pending('infill_line_distance')
+    it 'returns the correct infill_line_distance (trial 1)' do
+      infill_line_width = 123.321
+      infill_sparse_density = 75.432
+      infill_pattern = :cubic
+      actual = Curadef.infill_line_distance(infill_sparse_density, infill_line_width, infill_pattern)
+      expect(actual).to eq(490.458)
+    end
+
+    it 'returns the correct infill_line_distance (trial 1)' do
+      infill_line_width = 2.32155
+      infill_sparse_density = 15.333
+      infill_pattern = :cross
+      actual = Curadef.infill_line_distance(infill_sparse_density, infill_line_width, infill_pattern)
+      expect(actual).to eq(15.140)
+    end
   end
 end

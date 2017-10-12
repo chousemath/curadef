@@ -20,16 +20,26 @@ module Curadef
 
   def self.infill_line_distance(infill_sparse_density, infill_line_width, infill_pattern)
     # "label": "Infill Line Distance",
-    # "description": "Distance between the printed infill lines. This setting is calculated by the infill density and the infill line width.",
+    # "description": "Distance between the printed infill lines. This setting
+    #                is calculated by the infill density and the infill line
+    #                width.",
     # "unit": "mm",
     # "type": "float",
     # "default_value": 2,
     # "minimum_value": "0",
     # "minimum_value_warning": "infill_line_width",
-    # "value": "0 if infill_sparse_density == 0 else (infill_line_width * 100) / infill_sparse_density * (2 if infill_pattern == 'grid' else (3 if infill_pattern == 'triangles' or infill_pattern == 'cubic' or infill_pattern == 'cubicsubdiv' else (2 if infill_pattern == 'tetrahedral' or infill_pattern == 'quarter_cubic' else (1 if infill_pattern == 'cross' or infill_pattern == 'cross_3d' else 1))))",
+    # "value": "0 if infill_sparse_density == 0 else (infill_line_width * 100)
+    #          / infill_sparse_density * (2 if infill_pattern == 'grid' else (3
+    #          if infill_pattern == 'triangles' or infill_pattern == 'cubic' or
+    #          infill_pattern == 'cubicsubdiv' else (2 if infill_pattern ==
+    #          'tetrahedral' or infill_pattern == 'quarter_cubic' else (1 if
+    #          infill_pattern == 'cross' or infill_pattern == 'cross_3d' else
+    #          1))))",
     # "limit_to_extruder": "infill_extruder_nr",
     # "settable_per_mesh": true
     return 0.0 if infill_sparse_density == 0.0
-    (infill_line_width * 100.0) / infill_sparse_density * infill_multiplier[infill_pattern]
+    value = (infill_line_width * 100.0) / infill_sparse_density * infill_multiplier(infill_pattern)
+    # truncate that value to 3 decimal points
+    (value * 1000).floor / 1000.0
   end
 end
