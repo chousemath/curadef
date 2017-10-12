@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Joseph Sungpil Choi"]
   spec.email         = ["chousemath@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "%q{A definition builder ruby-based applications that want to utilize CuraEngine's slicing functions.}"
+  spec.description   = %q{The purpose of CuraDef is to construct the json definition that CuraEngine needs to properly slice a 3D model file.}
+  spec.homepage      = "https://gitlab.com/jochoi0707/CuraDef"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
