@@ -177,7 +177,7 @@ describe Curadef do
   end
 
   context 'speed_ironing' do
-    it 'should return a value if give one' do
+    it 'should return a value if given one' do
       actual = Curadef.speed_ironing(1.5)
       expect(actual).to eq(1.5)
     end
@@ -202,6 +202,31 @@ describe Curadef do
       speed_topbottom = 60
       actual = Curadef.speed_ironing(nil, speed_topbottom)
       expect(actual).to eq(40)
+    end
+  end
+
+  context 'ironing_inset' do
+    it 'should return a value if given one' do
+      actual = Curadef.ironing_inset(12.2)
+      expect(actual).to eq(12.2)
+    end
+    it 'should return a value if give one, regardles of following values' do
+      actual = Curadef.ironing_inset(1.5, 22, 33)
+      expect(actual).to eq(1.5)
+    end
+    it 'should return minimum value if value is negative' do
+      actual = Curadef.ironing_inset(-100, 22, 33)
+      expect(actual).to eq(0)
+    end
+    it 'should return the correct value trial 1' do
+      wall_line_width_0 = 30
+      actual = Curadef.ironing_inset(nil, wall_line_width_0)
+      expect(actual).to eq(15)
+    end
+    it 'should return the correct value trial 1' do
+      wall_line_width_0 = 99
+      actual = Curadef.ironing_inset(nil, wall_line_width_0)
+      expect(actual).to eq(49.5)
     end
   end
 end

@@ -46,6 +46,45 @@ module Curadef
     [0, value].max
   end
 
+  def self.ironing_inset(value, *args)
+    # "label": "Ironing Inset",
+    # "description": "A distance to keep from the edges of the model. Ironing all the way to the edge of the mesh may result in a jagged edge on your print.",
+    # "type": "float",
+    # "unit": "mm",
+    # "default_value": 0.35,
+    # "value": "wall_line_width_0 / 2",
+    # "minimum_value_warning": "0",
+    # "maximum_value_warning": "wall_line_width_0",
+    # "enabled": "ironing_enabled",
+    # "limit_to_extruder": "top_bottom_extruder_nr",
+    # "settable_per_mesh": true
+    unless value
+      wall_line_width_0 = args[0]
+      value = truncate_num(wall_line_width_0 / 2.0)
+    end
+    [0, value].max
+  end
+
+  def self.speed_ironing(value, *args)
+    # "label": "Ironing Speed",
+    # "description": "The speed at which to pass over the top surface.",
+    # "type": "float",
+    # "unit": "mm/s",
+    # "default_value": 20.0,
+    # "value": "speed_topbottom * 20 / 30",
+    # "minimum_value": "0.001",
+    # "maximum_value": "math.sqrt(machine_max_feedrate_x ** 2 + machine_max_feedrate_y ** 2)",
+    # "maximum_value_warning": "100",
+    # "enabled": "ironing_enabled",
+    # "limit_to_extruder": "top_bottom_extruder_nr",
+    # "settable_per_mesh": true
+    unless value
+      speed_topbottom = args[0]
+      value = truncate_num(speed_topbottom * 2 / 3.0)
+    end
+    [0.001, value].max
+  end
+
   def self.wall_line_count(value, *args)
     # "label": "Wall Line Count",
     # "description": "The number of walls. When calculated by the wall thickness, this value is rounded to a whole number.",
@@ -89,26 +128,6 @@ module Curadef
       value = truncate_num(machine_nozzle_size / 2.0)
     end
     [0, value].max
-  end
-
-  def self.speed_ironing(value, *args)
-    # "label": "Ironing Speed",
-    # "description": "The speed at which to pass over the top surface.",
-    # "type": "float",
-    # "unit": "mm/s",
-    # "default_value": 20.0,
-    # "value": "speed_topbottom * 20 / 30",
-    # "minimum_value": "0.001",
-    # "maximum_value": "math.sqrt(machine_max_feedrate_x ** 2 + machine_max_feedrate_y ** 2)",
-    # "maximum_value_warning": "100",
-    # "enabled": "ironing_enabled",
-    # "limit_to_extruder": "top_bottom_extruder_nr",
-    # "settable_per_mesh": true
-    unless value
-      speed_topbottom = args[0]
-      value = truncate_num(speed_topbottom * 2 / 3.0)
-    end
-    [0.001, value].max
   end
 
   def self.truncate_num(value)
