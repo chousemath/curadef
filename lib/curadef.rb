@@ -65,6 +65,29 @@ module Curadef
     [0, value].max
   end
 
+  def self.magic_fuzzy_skin_point_dist(value, *args)
+    # "label": "Fuzzy Skin Point Distance",
+    # "description": "The average distance between the random points introduced on each line segment. Note that the original points of the polygon are discarded, so a high smoothness results in a reduction of the resolution. This value must be higher than half the Fuzzy Skin Thickness.",
+    # "type": "float",
+    # "unit": "mm",
+    # "default_value": 0.8,
+    # "minimum_value": "magic_fuzzy_skin_thickness / 2",
+    # "minimum_value_warning": "0.1",
+    # "maximum_value_warning": "10",
+    # "value": "10000 if magic_fuzzy_skin_point_density == 0 else 1 / magic_fuzzy_skin_point_density",
+    # "enabled": "magic_fuzzy_skin_enabled",
+    # "limit_to_extruder": "wall_0_extruder_nr",
+    # "settable_per_mesh": true
+    unless value
+      if args.length > 1
+        magic_fuzzy_skin_point_density = args[1]
+        value = magic_fuzzy_skin_point_density == 0 ? 10000 : (1.0 / magic_fuzzy_skin_point_density)
+      end
+    end
+    magic_fuzzy_skin_thickness = args[0]
+    [truncate_num(magic_fuzzy_skin_thickness / 2.0), value].max
+  end
+
   def self.speed_ironing(value, *args)
     # "label": "Ironing Speed",
     # "description": "The speed at which to pass over the top surface.",

@@ -229,4 +229,29 @@ describe Curadef do
       expect(actual).to eq(49.5)
     end
   end
+
+  context 'magic_fuzzy_skin_point_dist' do
+    it 'should return minimum value if value is too small' do
+      magic_fuzzy_skin_thickness = 100
+      actual = Curadef.magic_fuzzy_skin_point_dist(0, magic_fuzzy_skin_thickness)
+      expect(actual).to eq(50)
+    end
+    it 'should return value if greater than minimum' do
+      magic_fuzzy_skin_thickness = 100
+      actual = Curadef.magic_fuzzy_skin_point_dist(150, magic_fuzzy_skin_thickness)
+      expect(actual).to eq(150)
+    end
+    it 'should return the correct value trial 1' do
+      magic_fuzzy_skin_thickness = 100
+      magic_fuzzy_skin_point_density = 0
+      actual = Curadef.magic_fuzzy_skin_point_dist(nil, magic_fuzzy_skin_thickness, magic_fuzzy_skin_point_density)
+      expect(actual).to eq(10000)
+    end
+    it 'should return the correct value trial 1' do
+      magic_fuzzy_skin_thickness = 0.1
+      magic_fuzzy_skin_point_density = 0.1
+      actual = Curadef.magic_fuzzy_skin_point_dist(nil, magic_fuzzy_skin_thickness, magic_fuzzy_skin_point_density)
+      expect(actual).to eq(10)
+    end
+  end
 end
